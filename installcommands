@@ -1,0 +1,114 @@
+# My Testing Setup: Lenovo X1 Carbon w/ 120 GB SSD (UEFI+GPT) + USB Flash Drive + WiFi
+# Prerequisites: Computer + USB + A Brain
+
+# **Your system could possibly be in an useless state if these commands are not used correctly.**
+
+# Read the description above each command.
+# If you do not understand a command, refer to the arch wiki OR google it OR open an issue.
+
+# Based on the arch wiki + my experience with linux...
+https://wiki.archlinux.org/index.php/Installation_guide
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
+# Verify UEFI Boot
+ls /sys/firmware/efi/efivars
+
+# WiFi Setup
+wifi-menu
+
+# Verify WiFi
+ping -c 3 www.archlinux.org
+
+# Partitioning | List partitions
+fdisk -l
+
+# Partitioning | Partition the disks | Minimum: 1 EFI Partition and 1 root (/) partition
+cfdisk
+
+# Make Filesystem
+mkfs.fat -F32 /dev/sda1
+mkfs.ext4 /dev/sda2
+
+# Mount root (/) partition
+mount /dev/sda2 /mnt
+
+# Getting latest/fastest mirrors | Install reflector
+pacman -Sy reflector
+
+# Getting latest/fastest mirrors | Use reflector | Replace the country according to your location.
+reflector --verbose --latest 100 -c 'Canada' --sort rate --save /etc/pacman.d/mirrorlist
+
+# Install base packages
+pacstrap /mnt base
+
+# Fstab | Generate an fstab file
+genfstab -U /mnt >> /mnt/etc/fstab
+
+# Fstab | Verify fstab
+cat /mnt/etc/fstab
+
+# Chroot into arch install
+arch-chroot /mnt
+
+# Time zone | Find your timezone
+ls /usr/share/zoneinfo
+
+# Time zone | Replace the timezone according to your location.
+ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+
+# Time zone | hwclock
+hwclock --systohc --utc
+
+# Localization | Set your locale: Uncomment en_US.UTF-8 UTF-8 for American-English.
+nano /etc/locale.gen
+
+# Localization | Generate locale
+locale-gen
+
+# Localization | Set LANG variable
+echo "LANG=en_US.UTF-8"  > /etc/locale.conf
+
+# Set hostname | Change archlinux to whatever you prefer
+echo "archlinux" > /etc/hostname
+
+# Set root password
+passwd
+
+# Create EFI directory
+mkdir /boot/efi
+
+# Mount EFI partition
+mount /dev/sda1 /boot/efi
+
+# Install packages used for managing boot | For intel users, also install: intel-ucode
+pacman -S grub efibootmgr os-prober
+
+# Install grub to efi directory
+grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+
+# Generate grub configuration file
+grub-mkconfig -o /boot/grub/grub.cfg
+
+# WiFi Manager | Install
+pacman -S networkmanager
+
+# WiFi Manager | Enable
+systemctl enable NetworkManager
+
+# Create your user | Replace yourname with your username
+useradd -m -g users -G wheel -s /bin/bash yourname
+
+# Create a password for the user created with the previous command | Replace yourname with your username
+passwd yourname
+
+# Add your user to the wheel group | Uncomment the wheel group line.
+EDITOR=nano visudo
+
+# Exit from chroot
+exit
+
+# Reboot into your fresh arch install!
+reboot
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+For the commands to install a minimal & stable gnome desktop environment, refer to my installgnomede script: IN PROGRESS.
