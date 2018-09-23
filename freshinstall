@@ -1,14 +1,20 @@
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+# A list of commands to install a minimal and stable Arch Linux. NOT A DUAL BOOT GUIDE.
+
+/////////////////////////////////////////////////////////////////////////////////////////////////
+
 # My Testing Setup: Lenovo X1 Carbon w/ 120 GB SSD (UEFI+GPT) + USB Flash Drive + WiFi
 # Prerequisites: Computer + USB + A Brain
 
-# **Your system could possibly be in an useless state if these commands are not used correctly.**
+# ** Your system could possibly be in an useless state if these commands are not used correctly. **
 
 # Read the description above each command.
 # If you do not understand a command, refer to the arch wiki OR google it OR open an issue.
 
 # Based on the arch wiki + my experience with linux...
 https://wiki.archlinux.org/index.php/Installation_guide
-/////////////////////////////////////////////////////////////////////////////////////////////////
+_________________________________________________________________________________________________
 
 # Verify UEFI Boot
 ls /sys/firmware/efi/efivars
