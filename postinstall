@@ -1,0 +1,7 @@
+# List wifi networks
+nmcli device wifi list
+
+# Connect to a wifi network
+nmcli device wifi connect SSID password password
+
+IN PROGRESS
