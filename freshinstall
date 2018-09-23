@@ -87,7 +87,7 @@ mkdir /boot/efi
 mount /dev/sda1 /boot/efi
 
 # Install packages used for managing boot | For intel users, also install: intel-ucode
-pacman -S grub efibootmgr os-prober
+pacman -S grub efibootmgr os-prober sudo
 
 # Install grub to efi directory
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
