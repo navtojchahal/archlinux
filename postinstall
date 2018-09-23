@@ -4,4 +4,17 @@ nmcli device wifi list
 # Connect to a wifi network
 nmcli device wifi connect SSID password password
 
-IN PROGRESS
+sudo pacman -Syu
+
+sudo pacman -S xorg-server xorg-xinit
+
+lspci | grep -e VGA -e 3D
+
+pacman -Ss xf86-video-intel
+pacman -S xorg-drivers # For all if you do not know
+
+pacman -S gnome-shell nautilus gnome-terminal gnome-tweak-tool gnome-control-center xdg-user-dirs gdm
+
+systemctl enable gdm
+
+reboot
