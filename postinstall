@@ -21,8 +21,8 @@ systemctl enable gdm
 #For XFCE
 sudo pacman -S xfce4
 sudo pacman -S xfce4-goodies
-sudo pacman -S lightdm lightdm-gtk-greeter
-systemctl enable lightdm
-sudo nano /etc/lightdm/lightdm.conf #Change session line to: session=/usr/bin/startxfce4
+sudo pacman -S lxdm-gtk3
+systemctl enable lxdm
+sudo nano /etc/lxdm/lxdm.conf #Change session line to: session=/usr/bin/startxfce4
 
 reboot
