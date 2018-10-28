@@ -11,7 +11,7 @@ sudo pacman -S xorg-server xorg-xinit
 lspci | grep -e VGA -e 3D
 
 pacman -Ss xf86-video-intel
-pacman -S xorg-drivers # For all if you do not know
+pacman -S xorg-drivers #For all if you do not know
 
 # Installing a desktop environment
 #For GNOME
@@ -23,5 +23,6 @@ sudo pacman -S xfce4
 sudo pacman -S xfce4-goodies
 sudo pacman -S lightdm lightdm-gtk-greeter
 systemctl enable lightdm
+sudo nano /etc/lightdm/lightdm.conf #Change session line to: session=/usr/bin/startxfce4
 
 reboot
