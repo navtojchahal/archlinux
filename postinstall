@@ -25,4 +25,10 @@ sudo pacman -S lxdm-gtk3
 systemctl enable lxdm
 sudo nano /etc/lxdm/lxdm.conf #Change session line to: session=/usr/bin/startxfce4
 
+#Some useful packages...
+yay
+pamac
+libinput-gestures
+synergy
+
 reboot
