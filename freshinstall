@@ -44,7 +44,7 @@ pacman -Sy reflector
 # Getting latest/fastest mirrors | Use reflector | Replace the country according to your location.
 reflector --verbose --latest 100 -c 'Canada' --sort rate --save /etc/pacman.d/mirrorlist
 
-# Install base packages
+# Install base packages (For development, add base-devel.)
 pacstrap /mnt base
 
 # Fstab | Generate an fstab file
