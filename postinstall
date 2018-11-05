@@ -26,8 +26,8 @@ systemctl enable lxdm
 sudo nano /etc/lxdm/lxdm.conf #Change session line to: session=/usr/bin/startxfce4
 
 # Some useful packages...
-yay
-pamac
+yay | https://github.com/Jguer/yay
+pamac | yay -S pamac
 libinput-gestures
 synergy
 sublime-text
