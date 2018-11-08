@@ -32,6 +32,7 @@ libinput-gestures
 synergy
 sublime-text | https://gist.github.com/navtojchahal/04ab6a6b0ef37244fbb4c2ed7c6badb2
 automa-themely
+nativefier
 
 # Some Arch Tips
 stop pamac from compressing packages when installing locally (makes installing things faster)
