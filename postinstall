@@ -6,7 +6,8 @@ nmcli device wifi connect SSID password password
 
 sudo pacman -Syu
 
-sudo pacman -S xorg-server xorg-xinit
+sudo pacman -S xorg-server xorg-xinit 
+# OR ONLY -->> sudo pacman -S xorg <<-- https://wiki.archlinux.org/index.php/Xorg
 
 lspci | grep -e VGA -e 3D
 
