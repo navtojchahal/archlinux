@@ -6,7 +6,7 @@ echo
 echo "This is a script to create a minimal and stable gnome setup on arch linux."
 echo
 
-# set -e
+#set -e
 if [[ $EUID -ne 0 ]]; then
     echo "You must be a root user to run this." 2>&1
     exit 1
@@ -17,15 +17,18 @@ read -p "Would you like to start (y/n)? " start
 if [ "$start" != "${start#[y]}" ] ; then
 	echo "Let's begin!"
 	echo //////////////////////////////
+	echo "Done."
 	read
 
 	echo "cd /"
 	cd /
 	echo //////////////////////////////
+	echo "Done."
 	read
 	
 	ls /sys/firmware/efi/efivars
 	echo //////////////////////////////
+	echo "Done."
 	echo
 
 #	wifi-menu
@@ -33,26 +36,184 @@ if [ "$start" != "${start#[y]}" ] ; then
 
 	ping -c 3 www.google.ca
 	echo //////////////////////////////
-	echo
+	echo "Done."
 	read
 
 	fdisk -l
 	lsblk
 	echo //////////////////////////////
-	echo
+	echo "Done."
 	read
 	
 	cfdisk
 	echo //////////////////////////////
-	echo
+	echo "Done."
+	read
 	
 	fdisk -l
 	lsblk
 	echo //////////////////////////////
-	echo
+	echo "Done."
 	read
 
+
+	cfdisk
+	echo //////////////////////////////
 	echo "Done."
+	read
+
+	fdisk -l
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	read -p "efipartition (/dev/sdax) = " efipartition
+	echo $efipartition
+	read -p "ospartition (/dev/sdax) = " ospartition
+	echo $ospartition
+	read
+	lsblk
+	read
+
+	mkfs.fat -F32 $efipartition
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mkfs.ext4 $ospartition
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mount $ospartition /mnt
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -Sy reflector
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	reflector --verbose --latest 100 -c 'Canada' --sort rate --save /etc/pacman.d/mirrorlist
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacstrap /mnt base
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	genfstab -U /mnt >> /mnt/etc/fstab
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	cat /mnt/etc/fstab
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	arch-chroot /mnt
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	hwclock --systohc --utc
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo Localization | Set your locale: Uncomment en_US.UTF-8 UTF-8 for American-English.
+	nano /etc/locale.gen
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	locale-gen
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "LANG=en_US.UTF-8"  > /etc/locale.conf
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "archlinux" > /etc/hostname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	passwd
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mkdir /boot/efi
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mount $efipartition /boot/efi
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -S grub efibootmgr os-prober sudo intel-ucode
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	grub-mkconfig -o /boot/grub/grub.cfg
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -S networkmanager
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	systemctl enable NetworkManager
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	read -p "Enter username: " yourname
+	useradd -m -g users -G wheel -s /bin/bash $yourname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	passwd $yourname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	EDITOR=nano visudo
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "script finished."
+	exit
+	#
+	#	echo //////////////////////////////
+	#	echo "Done."
+	#	read
 
 else
 	echo "Script not started."
