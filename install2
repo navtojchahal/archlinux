@@ -1,0 +1,97 @@
+	echo "Part 2 of Arch-Install"
+
+	ln -sf /usr/share/zoneinfo/US/Pacific /etc/localtime
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	hwclock --systohc --utc
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo Localization | Set your locale: Uncomment en_US.UTF-8 UTF-8 for American-English.
+	nano /etc/locale.gen
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	locale-gen
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "LANG=en_US.UTF-8"  > /etc/locale.conf
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "archlinux" > /etc/hostname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	passwd
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mkdir /boot/efi
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mount $efipartition /boot/efi
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -S grub efibootmgr os-prober sudo intel-ucode
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	grub-mkconfig -o /boot/grub/grub.cfg
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -S networkmanager
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	systemctl enable NetworkManager
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	read -p "Enter username: " yourname
+	useradd -m -g users -G wheel -s /bin/bash $yourname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	passwd $yourname
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	EDITOR=nano visudo
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "script finished. Press ENTER to exit chroot."
+	read
+	exit

@@ -1,0 +1,146 @@
+#!/bin/bash
+echo
+echo "arch-install-script 0.1"
+echo 
+
+echo "This is a script to create a minimal and stable gnome setup on arch linux."
+echo
+
+#set -e
+if [[ $EUID -ne 0 ]]; then
+    echo "You must be a root user to run this." 2>&1
+    exit 1
+fi
+
+read -p "Would you like to start (y/n)? " start
+
+if [ "$start" != "${start#[y]}" ] ; then
+	echo "Let's begin!"
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "cd /"
+	cd /
+	echo //////////////////////////////
+	echo "Done."
+	read
+	
+	ls /sys/firmware/efi/efivars
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+#	wifi-menu
+#	read
+
+	ping -c 3 www.google.ca
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	fdisk -l
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+	
+	cfdisk
+	echo //////////////////////////////
+	echo "Done."
+	read
+	
+	fdisk -l
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+
+	cfdisk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	fdisk -l
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	read -p "efipartition (/dev/sdax) = " efipartition
+	echo $efipartition
+	read -p "ospartition (/dev/sdax) = " ospartition
+	echo $ospartition
+	echo //////////////////////////////
+	echo "Done."
+	read
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mkfs.fat -F32 $efipartition
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mkfs.ext4 $ospartition
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	fdisk -l
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	mount $ospartition /mnt
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacman -Sy reflector
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	reflector --verbose --latest 100 -c 'Canada' --sort rate --save /etc/pacman.d/mirrorlist
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	pacstrap /mnt base
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	genfstab -U /mnt >> /mnt/etc/fstab
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	cat /mnt/etc/fstab
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	echo "arch-chroot /mnt"
+	echo //////////////////////////////
+	echo "Press ENTER to chroot."
+	read
+	arch-chroot /mnt
+
+	#
+	#	echo //////////////////////////////
+	#	echo "Done."
+	#	read
+
+else
+	echo "Script not started."
+fi
