@@ -130,6 +130,10 @@ if [ "$start" != "${start#[y]}" ] ; then
 	echo "Done."
 	read
 
+	echo "Copy install2 to /mnt"
+	read
+	cp /root/install2 /mnt/install2
+	
 	echo "arch-chroot /mnt"
 	echo //////////////////////////////
 	echo "Press ENTER to chroot."
