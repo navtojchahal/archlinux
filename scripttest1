@@ -1,0 +1,39 @@
+#!/bin/bash
+echo
+echo "arch-install-script 0.1"
+echo 
+
+echo "This is a script to create a minimal and stable gnome setup on arch linux."
+echo
+
+read -p "Would you like to start (y/n)? " start
+
+if [ "$start" != "${start#[y]}" ] ; then
+	echo "Let's begin!"
+	echo
+	ls /sys/firmware/efi/efivars
+	read
+
+	wifi-menu
+	read
+
+	ping -c 3 www.google.ca
+	read
+
+	fdisk -l
+	lsblk
+	read
+	
+	cfdisk
+	
+	fdisk
+	lsblk
+	read
+
+	echo "Done."
+
+else
+	echo "Script not started."
+fi
+
+
