@@ -100,6 +100,11 @@ if [ "$start" != "${start#[y]}" ] ; then
 	echo "Done."
 	read
 
+	lsblk
+	echo //////////////////////////////
+	echo "Done."
+	read
+
 	pacman -Sy reflector
 	echo //////////////////////////////
 	echo "Done."
@@ -172,6 +177,11 @@ if [ "$start" != "${start#[y]}" ] ; then
 	read
 
 	mount $efipartition /boot/efi
+	echo //////////////////////////////
+	echo "Done."
+	read
+
+	lsblk
 	echo //////////////////////////////
 	echo "Done."
 	read
