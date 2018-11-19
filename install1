@@ -132,7 +132,7 @@ if [ "$start" != "${start#[y]}" ] ; then
 
 	echo "Copy install2 to /mnt"
 	read
-	cp /root/install2 /mnt/install2
+	cp /root/install2 /mnt
 	
 	echo "arch-chroot /mnt"
 	echo //////////////////////////////
