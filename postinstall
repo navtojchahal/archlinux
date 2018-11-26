@@ -29,7 +29,7 @@ sudo nano /etc/lxdm/lxdm.conf #Change session line to: session=/usr/bin/startxfc
 # Some useful packages...
 yay | https://github.com/Jguer/yay
 pamac | yay -S pamac
-alacritty | pacman -S alacritty
+tilda | pacman -S tilda
 libinput-gestures
 synergy | pacman -S synergy (Optional: qt5-base)
 sublime-text | https://gist.github.com/navtojchahal/04ab6a6b0ef37244fbb4c2ed7c6badb2
