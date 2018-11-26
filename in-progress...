@@ -1,0 +1,48 @@
+#!/bin/bash
+echo
+echo "arch | post-install | script 0.1"
+read
+echo "nmcli device wifi list"
+nmcli device wifi list
+read
+echo "nmcli device wifi connect SSID password password"
+
+nmcli device wifi connect SSID password password
+
+sudo pacman -Syu
+
+sudo pacman -S xorg-server xorg-xinit 
+# OR ONLY -->> sudo pacman -S xorg <<-- https://wiki.archlinux.org/index.php/Xorg
+
+lspci | grep -e VGA -e 3D
+
+pacman -Ss xf86-video-intel
+pacman -S xorg-drivers #For all if you do not know
+
+# Installing a desktop environment
+#For GNOME
+pacman -S gnome-shell nautilus gnome-terminal gnome-tweak-tool gnome-control-center xdg-user-dirs gdm
+systemctl enable gdm
+
+# For XFCE
+sudo pacman -S xfce4
+sudo pacman -S xfce4-goodies
+sudo pacman -S lxdm-gtk3
+systemctl enable lxdm
+sudo nano /etc/lxdm/lxdm.conf #Change session line to: session=/usr/bin/startxfce4
+
+# Some useful packages...
+yay | https://github.com/Jguer/yay
+pamac | yay -S pamac
+alacritty | pacman -S alacritty
+libinput-gestures
+synergy | pacman -S synergy (Optional: qt5-base)
+sublime-text | https://gist.github.com/navtojchahal/04ab6a6b0ef37244fbb4c2ed7c6badb2
+automa-themely
+gtop
+nativefier
+
+# Some Arch Tips
+stop pamac from compressing packages when installing locally (makes installing things faster)
+
+reboot
